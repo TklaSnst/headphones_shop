@@ -1,0 +1,20 @@
+from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Item(Base):
+    __tablename__ = "items"
+    item_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+    price: Mapped[int] = mapped_column(nullable=False)
+    img_src: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str]
+
+
+class User(Base):
+    __tablename__ = "users"
+    user_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)

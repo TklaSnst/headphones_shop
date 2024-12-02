@@ -1,3 +1,4 @@
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 
 
@@ -14,7 +15,5 @@ class Item(Base):
     description: Mapped[str]
 
 
-class User(Base):
-    __tablename__ = "users"
-    user_id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(nullable=False)
+class User(SQLAlchemyBaseUserTable, Base):
+    id: Mapped[int] = mapped_column(primary_key=True)

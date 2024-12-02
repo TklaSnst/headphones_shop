@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}{% endblock head%}
      <link rel="stylesheet" href="{{ url_for('static', path='base.css') }}">
-    <title>Интернет-магазин товаров</title>
+    <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
 
@@ -22,28 +23,10 @@
     </div>
 
     <!-- Основной контент -->
-    <div class="content">
 
-        <!-- Меню для сортировки -->
-        <div class="sidebar">
-            <h3>Сортировка</h3>
-            <select>
-                <option value="price">По цене</option>
-                <option value="manufacturer">По производителю</option>
-                <option value="volume">По громкости</option>
-            </select>
-            <select>
-                <option value="asc">По возрастанию</option>
-                <option value="desc">По убыванию</option>
-            </select>
-        </div>
+    {% block content %}
 
-        <!-- Блок с товарами (пока пустой) -->
-        <div class="products">
-            <!-- Здесь будет блок с товарами -->
-        </div>
-
-    </div>
+    {% endblock content %}
 
     <!-- Footer -->
     <footer>

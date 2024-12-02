@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block head%}
+{% endblock head %}
+
+
+{% block title %}SoundSphere{% endblock title %}
+
+
+{% block content %}
+<div class="content">
+
+        <!-- Меню для сортировки -->
+        <div class="sidebar">
+            <h3>Сортировка</h3>
+            <select>
+                <option value="price">По цене</option>
+                <option value="manufacturer">По производителю</option>
+                <option value="volume">По громкости</option>
+            </select>
+            <select>
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По убыванию</option>
+            </select>
+        </div>
+
+        <!-- Блок с товарами (пока пустой) -->
+        <div class="products">
+            <!-- Здесь будет блок с товарами -->
+        </div>
+
+</div>
+{% endblock content %}

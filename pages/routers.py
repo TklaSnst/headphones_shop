@@ -9,6 +9,21 @@ router = APIRouter(
 templates = Jinja2Templates(directory="static")
 
 
-@router.get("/base")
+@router.get("/store-main")
 def get_base_page(request: Request):
-    return templates.TemplateResponse("base.html", {"request": request})
+    return templates.TemplateResponse("store.html", {"request": request})
+
+
+@router.get("/comparison")
+def get_base_page(request: Request):
+    return templates.TemplateResponse("comparison.html", {"request": request})
+
+
+@router.get("/catalog")
+def get_base_page(request: Request):
+    return templates.TemplateResponse("catalog.html", {"request": request})
+
+
+@router.get("/basket")
+def get_base_page(request: Request):
+    return templates.TemplateResponse("basket.html", {"request": request})

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block head%}
+<script src="{{ url_for('static', path='auth.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', path='auth.css') }}">
+{% endblock head %}
+
+
+{% block title%}SoundSphere{% endblock title %}
+
+
+{% block content %}
+<div class='register-container'>
+    <input type='text' class='register register-name' id='reg-name'>
+    <input type='text' class='register register-password' id='reg-pass'>
+
+    <button class='register' onclick="register()">Зарегестрироваться</button>
+</div>
+{% endblock content %}

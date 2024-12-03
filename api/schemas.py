@@ -1,20 +1,28 @@
-import datetime
-import uuid
 from typing import Optional
-
 from fastapi_users import schemas
+from pydantic import BaseModel
 
 
-class UserRead(schemas.BaseUser[int]):
-    first_name: str
-    birthdate: Optional[datetime.date]
+class Base(BaseModel):
+    pass
 
 
-class UserCreate(schemas.BaseUserCreate):
-    first_name: str
-    birthdate: Optional[datetime.date]
+class UserRead(Base):
+    id: int
+    name: str
+    is_superuser: bool
+    email: str
 
 
-class UserUpdate(schemas.BaseUserUpdate):
-    first_name: Optional[str]
-    birthdate: Optional[datetime.date]
+class UserCreate(Base):
+    id: int
+    name: str
+    hashed_password: str
+    is_superuser: bool
+    email: str
+
+
+class UserUpdate(Base):
+    name: Optional[str]
+    is_superuser: Optional[str]
+    email: Optional[str]

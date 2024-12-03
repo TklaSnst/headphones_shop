@@ -27,3 +27,8 @@ def get_base_page(request: Request):
 @router.get("/basket")
 def get_base_page(request: Request):
     return templates.TemplateResponse("basket.html", {"request": request})
+
+
+@router.get("/register")
+def get_base_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})

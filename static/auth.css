@@ -1,0 +1,20 @@
+.register-container{
+    position: absolute;
+    background-color: aqua;
+    width: 700px;
+    height: 900px;
+    align-content: center;
+    left: 150px;
+    top: 200px;
+}
+
+.register {
+    position: relative;
+    align-self: center;
+    width: 450px;
+    height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: large;
+}

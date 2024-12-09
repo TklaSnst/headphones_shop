@@ -13,17 +13,17 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     verification_token_secret = os.getenv('SECRET')
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
-        print(f"User {user.id} has registered.")
+        print(f"User {user.user_id} has registered.")
 
     async def on_after_forgot_password(
         self, user: User, token: str, request: Optional[Request] = None
     ):
-        print(f"User {user.id} has forgot their password. Reset token: {token}")
+        print(f"User {user.user_id} has forgot their password. Reset token: {token}")
 
     async def on_after_request_verify(
         self, user: User, token: str, request: Optional[Request] = None
     ):
-        print(f"Verification requested for user {user.id}. Verification token: {token}")
+        print(f"Verification requested for user {user.user_id}. Verification token: {token}")
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):

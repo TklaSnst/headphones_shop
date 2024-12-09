@@ -26,3 +26,10 @@ class UserUpdate(Base):
     name: Optional[str]
     is_superuser: Optional[str]
     email: Optional[str]
+
+
+class ItemCreate(Base):
+    name: str
+    price: int
+    img_src: str
+    description: str

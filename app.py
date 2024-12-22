@@ -10,10 +10,10 @@ from api import (get_user_manager, auth_backend,
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await drop_tables()
-    print('tables dropped')
+    # await drop_tables()
+    # print('tables dropped')
     await create_tables()
-    print('tables created and clean')
+    # print('tables created and clean')
     yield
     print('shutdown...')
 

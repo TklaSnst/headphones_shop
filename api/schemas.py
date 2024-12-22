@@ -29,7 +29,8 @@ class UserUpdate(Base):
 
 
 class ItemCreate(Base):
-    name: str
+    fullname: str
+    brand: str
     price: int
-    img_src: str
+    img: str
     description: str

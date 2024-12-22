@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from .models import Item
 from api import ItemCreate
+from sqlalchemy import select
 
 
 async def create_item(async_session: AsyncSession,
@@ -17,5 +18,27 @@ async def create_item(async_session: AsyncSession,
             session.add(item_create)
             await session.commit()
             return "item created"
+        except Exception as e:
+            raise e
+
+
+async def get_item_by_id(async_session: AsyncSession, item_id: Item.item_id):
+    async with async_session() as session:
+        try:
+            stmt = select(Item).where(Item.item_id == item_id)
+            result = await session.execute(stmt)
+            item = result.scalar()
+            return item
+        except Exception as e:
+            raise e
+
+
+async def get_main_items(async_session: AsyncSession, item_id: Item.item_id):
+    async with async_session() as session:
+        try:
+            stmt = select(Item).where(Item.item_id == item_id)
+            result = await session.execute(stmt)
+            item = result.scalar()
+            return item
         except Exception as e:
             raise e

@@ -1,0 +1,10 @@
+li:hover{
+    background-color: #999999;
+    color:#e2dada;
+    transition-duration: 0.6s;
+}
+
+item-card{
+    background-color: #abd8e0;
+
+}

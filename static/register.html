@@ -11,10 +11,59 @@
 
 
 {% block content %}
-<div class='register-container'>
-    <input type='text' class='register register-name' id='reg-name'>
-    <input type='text' class='register register-password' id='reg-pass'>
+<div style="padding-top: 80px">
+    <div class="row">
+        <div class='col-md-5'></div>
+        <div class='col-md-2 register-menu' 
+            style="background-color: black; height: 50vh; padding-left: 50px; padding-right: 50px; padding-top: 50px; border-radius: 10px;
+        ">
+            <h2 style="padding-left: 20px; padding-right: 20px; color: white">SoundSphere</h2>
 
-    <button class='register' onclick="register()">Зарегестрироваться</button>
+            <div class="mb-3">
+                <label for="" class="form-label" style="color: white">Login</label>
+                <input
+                    type="login"
+                    class="form-control"
+                    style="padding: 20px"
+                    name=""
+                    id=""
+                    placeholder=""
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label" style="color: white">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    style="padding: 20px"
+                    name=""
+                    id=""
+                    placeholder=""
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label" style="color: white">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    style="padding: 20px"
+                    name=""
+                    id=""
+                    placeholder=""
+                />
+            </div>
+
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-md-4"></div>
+                <div>
+                    <button type="button" class="btn btn-primary" style="background-color: white; color: black; border-color: white;">Register</button>
+                </div>
+            </div>
+                
+        </div>
+        <div class='col-md-5'></div>
+    </div>
 </div>
 {% endblock content %}

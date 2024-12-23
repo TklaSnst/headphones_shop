@@ -1,5 +1,3 @@
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import BLOB, LargeBinary, Column
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 
 

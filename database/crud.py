@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from .models import Item
-from api import ItemCreate
+from .models import Item, User
+from .schemas import ItemCreate, UserCreate
 from sqlalchemy import select
 
 
@@ -41,4 +41,44 @@ async def get_main_items(async_session: AsyncSession, item_id: Item.item_id):
             item = result.scalar()
             return item
         except Exception as e:
+            raise e
+
+
+async def get_user_by_name(async_session: AsyncSession, username):
+    async with async_session() as session:
+        try:
+            stmt = select(User).where(User.name == username)
+            result = await session.execute(stmt)
+            user = result.scalar()
+            return user
+        except Exception as e:
+            print(f"error: {e}")
+            raise e
+
+
+async def create_user(async_session: AsyncSession,
+                      user: UserCreate):
+    async with async_session() as session:
+        try:
+            user_create = User(**user.model_dump())
+            session.add(user_create)
+            await session.commit()
+            return user_create.user_id
+        except Exception as e:
+            print(f"error: {e}")
+            raise e
+
+
+async def update_jwt_refresh_token(
+        async_session: AsyncSession, id: User.user_id, jwt_r_token: str
+):
+    async with async_session() as session:
+        try:
+            stmt = select(User).where(User.user_id == id)
+            result = await session.execute(stmt)
+            user = result.scalar()
+            user.jwt_refresh_token = jwt_r_token
+            await session.commit()
+        except Exception as e:
+            print(f"error: {e}")
             raise e

@@ -1,5 +1,6 @@
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import (DeclarativeBase, mapped_column, Mapped,)
+from sqlalchemy import ForeignKey, Column
+from sqlalchemy.orm import (DeclarativeBase, mapped_column, Mapped)
+from sqlalchemy.types import BINARY
 
 
 class Base(DeclarativeBase):

@@ -1,26 +1,33 @@
-function reg(){
-    // if (pass1 != pass2){
-    //     console.log('paroli ne sovpadaiut');
-    //     return 0;
-    //     // 
-    // }
+// let username = document.querySelector("#login-input");
+// let password1 = document.querySelector("#password1");
+// let password2 = document.querySelector("#password2");
+// let submit_button = document.getElementById("submit-button");
+// console.log(submit_button);
 
-    // if (pass1.length < 8){
-    //     console.log('parol dolzhen bit' );
-    // }
+// submit_button.addEventListener('click', () => {
+//     if (password1.value != password2.value){
+//         alert("Passwords are not same!");
+//     } else {
+//         const UserLogin = username.value;
+//         const UserPassword = password1.value;
+//         console.log(UserLogin, UserPassword);
+//     }
+// })
+    
 
-    // var data = fetch(`${url}/page/usr_win/?tgid=${tgid}&usr_bet=${user_bet}&coefficient=2`).then(
-    //     (data) => {const d2 = data.json().then((info) => {
-    //         document.getElementById("user_balance").textContent = String(info)
-    //     })}
-    // );
+async function registration(){
+    let username = document.getElementById("login-input").value;
+    let password1 = document.getElementById("password1").value;
+    let password2 = document.getElementById("password2").value;
 
-    let form = document.forms.registration_form;
-    let login = form.elements.login.value;
-    let password1 = form.elements.password1.value;
-    let password2 = form.elements.password2.value;
+    if (password1 != password2){
+        return alert("Passwords are not same!");
+    } else {
+        if (password1.length < 8){
+            return alert("Password shud contain 8 chars or more");
+        } 
+    }
 
-    console.log(login, password1);
-
-
+    var url = 'http://127.0.0.1:8000/auth/registration/';
+    let response = await fetch(url, );
 }

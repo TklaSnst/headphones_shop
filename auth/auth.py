@@ -1,6 +1,8 @@
 from authx import AuthX, AuthXConfig
 from dotenv import load_dotenv
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import jwt
 import hashlib
 import database
 import os
@@ -17,6 +19,8 @@ security = AuthX(config=config)
 router = APIRouter(tags=["auth"],
                    prefix="/auth")
 
+http_bearer = HTTPBearer()
+
 
 async def create_tokens(id: int):
     access_token = security.create_access_token(uid=str(id))
@@ -28,16 +32,29 @@ async def create_tokens(id: int):
     }
 
 
+async def validate_access_token(token):
+    pass
+
+
+async def validate_refresh_token(token):
+    pass
+
+
+async def refresh_tokens(r_token, a_token, uid: int):
+    ...
+    await create_tokens(id=uid)
+
+
 @router.post("/registration/")
-async def login(credentials: database.SUserLogin, request: Request):
-    user = database.get_user_by_name(
-        async_session=database.async_session,username=credentials.username)
+async def login(credentials: database.SUserLogin, response: Response):
+    user = await database.get_user_by_name(
+        async_session=database.async_session, username=credentials.username)
     if user:
         return "username is already taken"
 
-    password = credentials.password
-    hashed_password = hashlib.new('sha256')
-    hashed_password.update(password.encode())
+    hash_ = hashlib.new('sha256')
+    hash_.update(credentials.password.encode())
+    hashed_password = hash_.hexdigest()
 
     user_create = database.UserCreate(name=credentials.username, hashed_password=hashed_password)
     new_user_id = await database.create_user(
@@ -49,6 +66,9 @@ async def login(credentials: database.SUserLogin, request: Request):
     await database.update_jwt_refresh_token(
         async_session=database.async_session, id=new_user_id, jwt_r_token=refr_t
     )
+
+    # response.set_cookie(config.JWT_REFRESH_COOKIE_NAME, refr_t, httponly=True)
+    response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, tokens.get('access_token'), httponly=True)
     return {
         "access_token": tokens.get("access_token"),
         "refresh_token": tokens.get("refresh_token"),
@@ -58,5 +78,38 @@ async def login(credentials: database.SUserLogin, request: Request):
 
 
 @router.post("/login/")
-async def login():
-    pass
+async def login(credentials: database.SUserLogin):
+    user = await database.get_user_by_name(
+        async_session=database.async_session,
+        username=credentials.username
+    )
+    if not user:
+        raise HTTPException(status_code=401)
+    hash_ = hashlib.new('sha256')
+    hash_.update(credentials.password.encode())
+    hashed_password = hash_.hexdigest()
+    if hashed_password != user.hashed_password:
+        raise HTTPException(status_code=403)
+
+
+@router.get("/users/me")
+async def get_user_info(
+        creds: HTTPAuthorizationCredentials = Depends(http_bearer)
+):
+    token = creds.credentials
+    payload = jwt.decode(
+        token,
+        os.getenv("JWT_SECRET_KEY"),
+        algorithms=["HS256"]
+    )
+    uid: int = payload.get("sub")
+    user = await database.get_user_by_uid(
+        async_session=database.async_session,
+        id=uid
+    )
+    return {
+        "uid": uid,
+        "username": user.name,
+        "email": user.email,
+        "is_superuser": user.is_superuser
+    }

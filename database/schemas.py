@@ -23,3 +23,10 @@ class UserCreate(Base):
 class SUserLogin(Base):
     username: str
     password: str
+
+
+class GetUser(Base):
+    user_id: int | None
+    username: str
+    email: str | None
+    is_superuser: bool

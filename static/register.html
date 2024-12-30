@@ -28,31 +28,34 @@
                         style="padding: 20px"
                         name="login"
                         id="login-input"
-                        placeholder=""
+                        placeholder="enter your login..."
+                        required
                     />
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="form-label" style="color: white">Password</label>
                     <input
-                        type="text"
+                        type="password"
                         class="form-control"
                         style="padding: 20px"
                         name="password1"
                         id="password1"
-                        placeholder=""
+                        placeholder="enter password..."
+                        required
                     />
                 </div>
 
                 <div class="mb-3">
                     <label for="" class="form-label" style="color: white">Password</label>
                     <input
-                        type="text"
+                        type="password"
                         class="form-control"
                         style="padding: 20px"
                         name="password2"
                         id="password2"
-                        placeholder=""
+                        placeholder="confirm password..."
+                        required
                     />
                 </div>
             </foorm>
@@ -60,7 +63,7 @@
             <div class="row" style="padding-top: 30px;">
                 <div class="col-md-4"></div>
                 <div>
-                    <button onclick="reg()" type="button" class="btn btn-primary" style="background-color: white; color: black; border-color: white;">Register</button>
+                    <button onclick="registration()" id="submit-button" type="button" class="btn btn-primary" style="background-color: white; color: black; border-color: white;">Register</button>
                 </div>
             </div>
                 

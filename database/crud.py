@@ -56,6 +56,18 @@ async def get_user_by_name(async_session: AsyncSession, username):
             raise e
 
 
+async def get_user_by_uid(async_session: AsyncSession, id: int) -> User:
+    async with async_session() as session:
+        try:
+            stmt = select(User).where(User.user_id == id)
+            result = await session.execute(stmt)
+            user = result.scalar()
+            return user
+        except Exception as e:
+            print(f"error: {e}")
+            raise e
+
+
 async def create_user(async_session: AsyncSession,
                       user: UserCreate):
     async with async_session() as session:
@@ -63,6 +75,7 @@ async def create_user(async_session: AsyncSession,
             user_create = User(**user.model_dump())
             session.add(user_create)
             await session.commit()
+            await session.refresh(user_create)
             return user_create.user_id
         except Exception as e:
             print(f"error: {e}")

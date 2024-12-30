@@ -9,9 +9,7 @@ from auth import router as auth_router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # await drop_tables()
-    # print('tables dropped')
     await create_tables()
-    # print('tables created and clean')
     yield
     print('shutdown...')
 

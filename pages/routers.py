@@ -40,3 +40,4 @@ async def get_base_page(request: Request):
 @router.get("/register/")
 async def get_base_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
+

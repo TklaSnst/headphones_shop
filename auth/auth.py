@@ -57,7 +57,7 @@ async def login(credentials: database.SUserLogin, response: Response):
         await database.update_jwt_refresh_token(
             async_session=database.async_session,
             id=user.user_id,
-            jwt_r_token=new_tokens.get('jwt_refresh_token')
+            jwt_r_token=new_tokens.get('refresh_token')
         )
         return new_tokens
     except Exception as ex:

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from database import get_item_by_id, async_session
+from database import get_item_by_id, async_session, get_start_items
 
 
 router = APIRouter(

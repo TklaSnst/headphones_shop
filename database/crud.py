@@ -33,6 +33,17 @@ async def get_item_by_id(async_session: AsyncSession, item_id: Item.item_id):
             raise e
 
 
+async def get_start_items(async_session: AsyncSession, c: int):
+    async with async_session() as session:
+        try:
+            stmt = session.querry(Item).filter(Item.item_id <= c).all()
+            result = await session.execute(stmt)
+            items = result.scalars()
+            return items
+        except Exception as e:
+            raise e
+
+
 async def get_main_items(async_session: AsyncSession, item_id: Item.item_id):
     async with async_session() as session:
         try:

@@ -95,3 +95,16 @@ async def update_jwt_refresh_token(
         except Exception as e:
             print(f"error: {e}")
             raise e
+
+
+async def delete_refresh_token(async_session: AsyncSession, uid: int):
+    async with async_session() as session:
+        try:
+            stmt = select(User).where(User.user_id == uid)
+            result = await session.execute(stmt)
+            user = result.scalar()
+            user.jwt_refresh_token = None
+            await session.commit()
+            return 1
+        except Exception as e:
+            return 0

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+
+{% block head%}
+<script src="{{ url_for('static', path='auth.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', path='auth.css') }}">
+{% endblock head %}
+
+
+{% block title%}SoundSphere{% endblock title %}
+
+
+{% block content %}
+<div style="padding-top: 80px">
+    <div class="row">
+        <div class='col-md-5'></div>
+        <div class='col-md-2 register-menu' 
+            style="background-color: black; height: 50vh; padding-left: 50px; padding-right: 50px; padding-top: 50px; border-radius: 10px;
+        ">
+            <h2 style="padding-left: 20px; padding-right: 20px; color: white">SoundSphere</h2>
+
+            <foorm name='registration_form'>
+                <div class="mb-3">
+                    <label for="" class="form-label" style="color: white">Login</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        style="padding: 20px"
+                        name="login"
+                        id="login-input"
+                        placeholder="enter your login..."
+                        required
+                    />
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="" class="form-label" style="color: white">Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        style="padding: 20px"
+                        name="password1"
+                        id="password1"
+                        placeholder="confirm password..."
+                        required
+                    />
+                </div>
+            </foorm>
+
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-md-4"></div>
+                <div>
+                    <button onclick="login()" id="submit-button" type="button" class="btn btn-primary" style="background-color: white; color: black; border-color: white;">Register</button>
+                </div>
+            </div>
+                
+        </div>
+        <div class='col-md-5'></div>
+    </div>
+</div>
+{% endblock content %}

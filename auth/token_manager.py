@@ -68,6 +68,14 @@ async def refresh_tokens(r_token, a_token, response):
         id=uid
     )
     if user.jwt_refresh_token != r_token:
+        print('user.jwt_refresh_token != r_token')
+        print(r_token)
+        print(user.jwt_refresh_token)
         raise HTTPException(status_code=401)
     new_tokens = await update_tokens_cookie(uid, response)
+    await database.update_jwt_refresh_token(
+        async_session=database.async_session,
+        id=uid,
+        jwt_r_token=new_tokens.get('jwt_refresh_token')
+    )
     return new_tokens

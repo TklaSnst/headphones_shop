@@ -8,6 +8,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt.exceptions import ExpiredSignatureError
 import hashlib
 import database
+import json
 
 
 load_dotenv()
@@ -17,11 +18,11 @@ http_bearer = HTTPBearer()
 
 
 @router.post("/registration/")
-async def registration(credentials: database.SUserLogin, response: Response):
+async def registration(credentials: database.SUserLogin):
     user = await database.get_user_by_name(
         async_session=database.async_session, username=credentials.username)
     if user:
-        return "username is already taken"
+        raise HTTPException(status_code=401, detail="username is already taken")
 
     hash_ = hashlib.new('sha256')
     hash_.update(credentials.password.encode())
@@ -40,6 +41,7 @@ async def registration(credentials: database.SUserLogin, response: Response):
 @router.post("/login/")
 async def login(credentials: database.SUserLogin, response: Response):
     try:
+        print(credentials)
         user = await database.get_user_by_name(
             async_session=database.async_session,
             username=credentials.username
@@ -47,6 +49,8 @@ async def login(credentials: database.SUserLogin, response: Response):
         hash_ = hashlib.new('sha256')
         hash_.update(credentials.password.encode())
         hashed_password = hash_.hexdigest()
+        print(type(hashed_password), hashed_password)
+        print(type(user.hashed_password), user.hashed_password)
         if (not user) or (hashed_password != user.hashed_password):
             raise HTTPException(status_code=403, detail="Wrong username or password")
 
@@ -74,9 +78,13 @@ async def get_user_info(
     a_token = creds.credentials
     r_token = request.cookies.get('jwt_refresh_cookie')
 
-    if not (await decode_token(a_token) or await decode_token(r_token)):
-        return HTTPException(status_code=401)
-    elif not (await decode_token(a_token)) and await decode_token(r_token):
+    if (
+            (await decode_token(a_token) == 0) and (await decode_token(r_token) == 0) or
+            (await decode_token(a_token) == 1) and (await decode_token(r_token) == 0)
+    ):
+        return HTTPException(status_code=401, detail='refresh or access token is hueviy, login again')
+
+    elif (await decode_token(a_token) == 0) and (await decode_token(r_token) == 1):
         print('expired signature')
         tokens = await refresh_tokens(a_token, r_token, response)
         uid = await get_id_from_access_token(a_token=tokens.get('access_token'))

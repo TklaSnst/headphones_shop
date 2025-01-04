@@ -2,6 +2,8 @@
 
 
 {% block head%}
+<script src="{{ url_for('static', path='auth.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', path='auth.css') }}">
 {% endblock head %}
 
 
@@ -12,41 +14,27 @@
 
 <div class='container-fluid' style="height: 100%;">
     <div class='row' style="height: 100%;">
-        <div class="col-md-3" style="background-color: black; height: 100vh;">
+        <div class="col-md-3" style="background-color: rgb(8, 8, 8); height: 300vh;">
             <div class="mb-3">
-                <label for="" class="form-label">Sized Input</label>
+                <h2 style='color: rgb(209, 209, 209)'>Settings</h2>
+                <label for="" class="form-label" style='color: rgb(209, 209, 209)'><h4>Price</h4></label>
+                <br>
                 <input
-                    type="text"
-                    class="form-control form-control-sm"
+                    type="bottom price"
                     name=""
                     id=""
-                    aria-describedby="helpId"
-                    placeholder=""
+                    placeholder="from"
                 />
-                <small id="helpId" class="form-text text-muted">Help text</small>
-            </div>
-
-            <div class="dropdown">
-                <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="triggerId"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                    Dropdown
-                </button>
-                <div class="dropdown-menu" aria-labelledby="triggerId">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item disabled" href="#">Disabled action</a>
-                    <h6 class="dropdown-header">Section header</h6>
-                    <a class="dropdown-item" href="#">Action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">After divider action</a>
-                </div>
-            </div>
-            
+                <input
+                    type="top price"
+                    name=""
+                    id=""
+                    placeholder="to"
+                />
+                <br>
+                <br>
+                <button><h4>Submit</h4></button>
+            </div>            
         </div>
 
         <div class="col-md-9" style="height: 100vh;">
@@ -71,7 +59,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-9"><p class="card-text"><h4>{{ item_name_1 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black">Button</button></div>
+                                    <div class="col-md-3"><button onclick="basketAdd()" type="button" class="btn btn-primary" style="background-color: black; border-color: black">Buy</button></div>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +78,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-9"><p class="card-text"><h4>{{ item_name_2 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
+                                    <div class="col-md-3"><button onclick="basketAdd()" type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Buy</button></div>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +97,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-9"><p class="card-text"><h4>{{ item_name_3 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
+                                    <div class="col-md-3"><button onclick="basketAdd()" type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Buy</button></div>
                                 </div>
                             </div>
                         </div>
@@ -117,272 +105,9 @@
 
 
                 </div>
+                <br>
 
 
-                <div class='row'>
-
-                    
-                    <div class='col-md-4'>
-                        <div class="card" style="transition: 0.4s; border-radius: 10px;" 
-                            onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                            onmouseout="this.style.backgroundColor='#fff';"
-                            >
-                            <img class="card-img-top" style="width: 100%; height: 100%;" 
-                                src="{{ item_url_1 }}" alt="{{ title_1 }}" 
-                            />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_1 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_1 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_1 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_2 }}" alt="{{ title_2 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_2 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_2 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_2 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_3 }}" alt="{{ title_3 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_3 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_3 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_3 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class='row'>
-
-                    
-                    <div class='col-md-4'>
-                        <div class="card" style="transition: 0.4s; border-radius: 10px;" 
-                            onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                            onmouseout="this.style.backgroundColor='#fff';"
-                            >
-                            <img class="card-img-top" style="width: 100%; height: 100%;" 
-                                src="{{ item_url_1 }}" alt="{{ title_1 }}" 
-                            />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_1 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_1 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_1 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_2 }}" alt="{{ title_2 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_2 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_2 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_2 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_3 }}" alt="{{ title_3 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_3 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_3 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_3 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class='row'>
-
-                    
-                    <div class='col-md-4'>
-                        <div class="card" style="transition: 0.4s; border-radius: 10px;" 
-                            onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                            onmouseout="this.style.backgroundColor='#fff';"
-                            >
-                            <img class="card-img-top" style="width: 100%; height: 100%;" 
-                                src="{{ item_url_1 }}" alt="{{ title_1 }}" 
-                            />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_1 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_1 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_1 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_2 }}" alt="{{ title_2 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_2 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_2 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_2 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_3 }}" alt="{{ title_3 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_3 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_3 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_3 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class='row'>
-
-                    
-                    <div class='col-md-4'>
-                        <div class="card" style="transition: 0.4s; border-radius: 10px;" 
-                            onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                            onmouseout="this.style.backgroundColor='#fff';"
-                            >
-                            <img class="card-img-top" style="width: 100%; height: 100%;" 
-                                src="{{ item_url_1 }}" alt="{{ title_1 }}" 
-                            />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_1 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_1 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_1 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_2 }}" alt="{{ title_2 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_2 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_2 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_2 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='col-md-4'>
-                        <div class="card"  style="transition: 0.4s; border-radius: 10px;" 
-                        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-                        onmouseout="this.style.backgroundColor='#fff';"
-                        >
-                            <img class="card-img-top" style="width: 100%; height: 100%" src="{{ item_url_3 }}" alt="{{ title_3 }}" />
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-9"><h2 class="card-title">{{ item_brand_3 }}</h2></div>
-                                    <div class="col-md-3"><h3>{{ item_price_3 }}</h3></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-9"><p class="card-text"><h4>{{ item_name_3 }}</h4></p></div>
-                                    <div class="col-md-3"><button type="button" class="btn btn-primary" style="background-color: black; border-color: black;">Button</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                
             </div>    
         </div>
 

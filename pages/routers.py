@@ -41,3 +41,7 @@ async def get_base_page(request: Request):
 async def get_base_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
+
+@router.get("/login/")
+async def get_base_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})

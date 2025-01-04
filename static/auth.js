@@ -24,10 +24,49 @@ async function registration(){
         return alert("Passwords are not same!");
     } else {
         if (password1.length < 8){
-            return alert("Password shud contain 8 chars or more");
+            return alert("Password shud contain 8 characters or more");
         } 
     }
 
-    var url = 'http://127.0.0.1:8000/auth/registration/';
-    let response = await fetch(url, );
+    let user = {
+        username: String(username),
+        password: String(password1)
+    }
+    const url = 'http://127.0.0.1:8000/auth/registration/';
+    let response = fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        if (response.status == 401){
+            console.log('this username is already taken');
+        }
+    })
+}
+
+
+async function login(){
+    let username = document.getElementById("login-input").value;
+    let password = document.getElementById("password1").value;
+
+    let user = {
+        username: String(username),
+        password: String(password)
+    }
+    const url = 'http://127.0.0.1:8000/auth/login/';
+    let response = fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        console.log(response.json)
+    });
+}
+
+function basketAdd(){
+    
 }

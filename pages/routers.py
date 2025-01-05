@@ -37,7 +37,7 @@ async def get_base_page(request: Request):
     return templates.TemplateResponse("basket.html", {"request": request})
 
 
-@router.get("/register/")
+@router.get("/registration/")
 async def get_base_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 

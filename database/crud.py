@@ -1,6 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from .models import Item, User
-from .schemas import ItemCreate, UserCreate
+
+import database
+from .models import Item, User, Basket
+from .schemas import ItemCreate, UserCreate, BasketAddItem
 from sqlalchemy import select
 
 
@@ -79,8 +81,7 @@ async def get_user_by_uid(async_session: AsyncSession, id: int) -> User:
             raise e
 
 
-async def create_user(async_session: AsyncSession,
-                      user: UserCreate):
+async def create_user(async_session: AsyncSession, user: UserCreate):
     async with async_session() as session:
         try:
             user_create = User(**user.model_dump())
@@ -119,3 +120,16 @@ async def delete_refresh_token(async_session: AsyncSession, uid: int):
             return 1
         except Exception as e:
             return 0
+
+
+async def add_item_to_basket(async_session: AsyncSession, item: BasketAddItem):
+    async with async_session() as session:
+        try:
+            item_add = Basket(**item.model_dump())
+            session.add(item_add)
+            await session.commit()
+            await session.refresh(item_add)
+            return item_add.string_id
+        except Exception as e:
+            print(f"error: {e}")
+            raise e

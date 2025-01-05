@@ -30,3 +30,8 @@ class GetUser(Base):
     username: str
     email: str | None
     is_superuser: bool
+
+
+class BasketAddItem(Base):
+    uid: int
+    item_id: int

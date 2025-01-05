@@ -12,7 +12,7 @@ load_dotenv()
 config = AuthXConfig()
 config.JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 config.JWT_ACCESS_COOKIE_NAME = "jwt_access_token"
-config.JWT_REFRESH_COOKIE_NAME = "jwt_refresh_cookie"
+config.JWT_REFRESH_COOKIE_NAME = "jwt_refresh_token"
 
 security = AuthX(config=config)
 
@@ -53,8 +53,8 @@ async def update_tokens_cookie(uid, response):
     tokens = await create_tokens(uid)
     r_token = tokens.get("refresh_token")
     a_token = tokens.get("access_token")
-    response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, tokens.get('access_token'), httponly=True)
-    response.set_cookie(config.JWT_REFRESH_COOKIE_NAME, tokens.get('refresh_token'), httponly=True)
+    response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, tokens.get('access_token'))
+    response.set_cookie(config.JWT_REFRESH_COOKIE_NAME, tokens.get('refresh_token'))
     return {
         "access_token": a_token,
         "refresh_token": r_token
@@ -68,9 +68,9 @@ async def refresh_tokens(r_token, a_token, response):
         id=uid
     )
     if user.jwt_refresh_token != r_token:
-        print('user.jwt_refresh_token != r_token')
-        print(r_token)
-        print(user.jwt_refresh_token)
+        # print('user.jwt_refresh_token != r_token')
+        # print(r_token)
+        # print(user.jwt_refresh_token)
         raise HTTPException(status_code=401)
     new_tokens = await update_tokens_cookie(uid, response)
     await database.update_jwt_refresh_token(

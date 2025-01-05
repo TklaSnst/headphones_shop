@@ -32,3 +32,10 @@ class User(Base):
     jwt_refresh_token: Mapped[str] = mapped_column(nullable=True)
     email: Mapped[str] = mapped_column(nullable=True)
     is_superuser: Mapped[bool] = mapped_column(default=False)
+
+
+class Basket(Base):
+    __tablename__ = "baskets"
+    string_id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey(User.user_id), nullable=False)
+    item_id: Mapped[int] = mapped_column(ForeignKey(Item.item_id), nullable=False)

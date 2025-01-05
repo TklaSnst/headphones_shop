@@ -1,20 +1,3 @@
-// let username = document.querySelector("#login-input");
-// let password1 = document.querySelector("#password1");
-// let password2 = document.querySelector("#password2");
-// let submit_button = document.getElementById("submit-button");
-// console.log(submit_button);
-
-// submit_button.addEventListener('click', () => {
-//     if (password1.value != password2.value){
-//         alert("Passwords are not same!");
-//     } else {
-//         const UserLogin = username.value;
-//         const UserPassword = password1.value;
-//         console.log(UserLogin, UserPassword);
-//     }
-// })
-    
-
 async function registration(){
     let username = document.getElementById("login-input").value;
     let password1 = document.getElementById("password1").value;
@@ -42,6 +25,8 @@ async function registration(){
     }).then(response => {
         if (response.status == 401){
             console.log('this username is already taken');
+        } else if (response.status < 300 && response.status > 199){
+            console.log('successful registration');
         }
     })
 }
@@ -55,7 +40,7 @@ async function login(){
         username: String(username),
         password: String(password)
     }
-    const url = 'http://127.0.0.1:8000/auth/login/';
+    var url = 'http://127.0.0.1:8000/auth/login/';
     let response = fetch(url, {
         method: 'POST',
         body: JSON.stringify(user),
@@ -63,9 +48,25 @@ async function login(){
             'Content-Type': 'application/json'
         }
     }).then(response => {
-        console.log(response.json)
+        console.log(response.json);
+        if (response.status < 300 && response.status > 199){
+            console.log('successful login');
+        }
+    }); 
+}
+
+
+async function get_me(){
+    const url = 'http://127.0.0.1:8000/auth/users/me/';
+    console.log(document.cookie);
+    let response = fetch(url, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${document.cookie}`
+        }
     });
 }
+
 
 function basketAdd(){
     

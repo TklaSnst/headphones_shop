@@ -4,6 +4,7 @@ from starlette.staticfiles import StaticFiles
 from database import create_tables, drop_tables
 from pages import router as pages_router
 from auth import router as auth_router
+from api import router as support_router
 
 
 @asynccontextmanager
@@ -21,3 +22,4 @@ app.mount("/static",
           )
 app.include_router(pages_router)
 app.include_router(auth_router)
+app.include_router(support_router)

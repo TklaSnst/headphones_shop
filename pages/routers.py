@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Response
+from fastapi.exceptions import HTTPException
+from auth import check_user_authorize, get_id_from_access_token
 from fastapi.templating import Jinja2Templates
-from database import get_item_by_id, async_session, get_start_items
+from database import get_item_by_id, async_session, get_start_items, get_user_by_uid
 
 
 router = APIRouter(
@@ -25,6 +27,22 @@ async def get_base_page(request: Request, param: int = 0):
 @router.get("/comparison/")
 async def get_base_page(request: Request):
     return templates.TemplateResponse("comparison.html", {"request": request})
+
+
+@router.get("/user/")
+async def get_base_page(request: Request, response: Response):
+    tokens = await check_user_authorize(request=request, response=response)
+    if tokens == 0:
+        raise HTTPException(status_code=401, detail='user is not authorized')
+    elif tokens != 1:
+        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
+    else:
+        id = await get_id_from_access_token(request.cookies.get('jwt_access_token'))
+    user = await get_user_by_uid(async_session=async_session, id=id)
+    return templates.TemplateResponse("user.html", {
+        "request": request, "username": user.name, "user_id": user.user_id,
+        "user_is_superuser": user.is_superuser, "user_email": user.email
+    })
 
 
 @router.get("/catalog/")

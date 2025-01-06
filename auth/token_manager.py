@@ -21,8 +21,8 @@ async def create_tokens(id: int):
     access_token = security.create_access_token(uid=str(id))
     refresh_token = security.create_refresh_token(uid=str(id))
     return {
-        "access_token": access_token,
-        "refresh_token": refresh_token,
+        "jwt_access_token": access_token,
+        "jwt_refresh_token": refresh_token,
         "id": id
     }
 
@@ -51,13 +51,13 @@ async def decode_token(token):
 
 async def update_tokens_cookie(uid, response):
     tokens = await create_tokens(uid)
-    r_token = tokens.get("refresh_token")
-    a_token = tokens.get("access_token")
-    response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, tokens.get('access_token'))
-    response.set_cookie(config.JWT_REFRESH_COOKIE_NAME, tokens.get('refresh_token'))
+    r_token = tokens.get("jwt_refresh_token")
+    a_token = tokens.get("jwt_access_token")
+    response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, tokens.get('jwt_access_token'))
+    response.set_cookie(config.JWT_REFRESH_COOKIE_NAME, tokens.get('jwt_refresh_token'))
     return {
-        "access_token": a_token,
-        "refresh_token": r_token
+        "jwt_access_token": a_token,
+        "jwt_refresh_token": r_token
     }
 
 

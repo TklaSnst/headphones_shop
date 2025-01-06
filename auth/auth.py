@@ -25,10 +25,10 @@ async def check_user_authorize(request: Request, response: Response):
             (await decode_token(a_token) == 1) and (await decode_token(r_token) == 0)
     ):
         return 0
-
     elif (await decode_token(a_token) == 0) and (await decode_token(r_token) == 1):
         print('expired signature')
         tokens = await refresh_tokens(a_token, r_token, response)
+        return tokens
     return 1
 
 
@@ -73,7 +73,7 @@ async def login(credentials: database.SUserLogin, response: Response):
         await database.update_jwt_refresh_token(
             async_session=database.async_session,
             id=user.user_id,
-            jwt_r_token=new_tokens.get('refresh_token')
+            jwt_r_token=new_tokens.get('jwt_refresh_token')
         )
         return new_tokens
     except Exception as ex:
@@ -89,7 +89,8 @@ async def get_user_info(
 ):
     print('get me')
     # a_token = creds.credentials
-    a_token = request.cookies.get('jwt_access_token')
+    a_token = (
+        request.cookies.get('jwt_access_token'))
     r_token = request.cookies.get('jwt_refresh_token')
 
     if (
@@ -101,7 +102,7 @@ async def get_user_info(
     elif (await decode_token(a_token) == 0) and (await decode_token(r_token) == 1):
         print('expired signature')
         tokens = await refresh_tokens(a_token, r_token, response)
-        uid = await get_id_from_access_token(a_token=tokens.get('access_token'))
+        uid = await get_id_from_access_token(a_token=tokens.get('jwt_access_token'))
         user = await database.get_user_by_uid(
             async_session=database.async_session,
             id=uid

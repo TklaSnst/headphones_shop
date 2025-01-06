@@ -1,3 +1,5 @@
+const baseurl = "http://127.0.0.1:8000"
+
 async function registration(){
     let username = document.getElementById("login-input").value;
     let password1 = document.getElementById("password1").value;
@@ -15,7 +17,7 @@ async function registration(){
         username: String(username),
         password: String(password1)
     }
-    const url = 'http://127.0.0.1:8000/auth/registration/';
+    const url = baseurl + '/auth/registration/';
     let response = fetch(url, {
         method: 'POST',
         body: JSON.stringify(user),
@@ -40,7 +42,7 @@ async function login(){
         username: String(username),
         password: String(password)
     }
-    var url = 'http://127.0.0.1:8000/auth/login/';
+    var url = baseurl + '/auth/login/';
     let response = fetch(url, {
         method: 'POST',
         body: JSON.stringify(user),
@@ -57,7 +59,7 @@ async function login(){
 
 
 async function get_me(){
-    const url = 'http://127.0.0.1:8000/auth/users/me/';
+    const url = baseurl + '/auth/users/me/';
     console.log(document.cookie);
     let response = fetch(url, {
         method: 'GET',
@@ -69,5 +71,13 @@ async function get_me(){
 
 
 function basketAdd(){
-    
+    const url = 'http://127.0.0.1:8000/auth/users/me/';
+    let response = fetch(url, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${document.cookie}`,
+            'Content-Type': 'application/json'
+        },
+        body: json.stringify(item)
+    });
 }

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock head %}
+
+
+{% block title%}SoundSphere{% endblock title %}
+
+
+{% block content %}
+<div>
+    <h2>username: {{ username }} id: {{ user_id }}</h2>
+    <h2>id: {{ user_id }}</h2>
+    <h3>email: {{ user_email }}</h3>
+    <h4>admin: {{ user_is_superuser }}</h4>
+</div>
+{% endblock content %}

@@ -21,6 +21,7 @@ async def get_base_page(request: Request, param: int = 0):
         "request": request, "item_url_1": item1.img_url, "title_1": item1.fullname, "item_brand_1": item1.brand, "item_name_1": item1.fullname, "item_price_1": item1.price,
         "item_url_2": item2.img_url, "title_2": item2.fullname, "item_brand_2": item2.brand, "item_name_2": item2.fullname, "item_price_2": item2.price,
         "item_url_3": item3.img_url, "title_3": item3.fullname, "item_brand_3": item3.brand, "item_name_3": item3.fullname, "item_price_3": item3.price,
+        "item_id_1": item1.item_id, "item_id_2": item2.item_id, "item_id_3": item3.item_id,
     })
 
 
@@ -51,7 +52,15 @@ async def get_base_page(request: Request):
 
 
 @router.get("/basket/")
-async def get_base_page(request: Request):
+async def get_base_page(request: Request, response: Response):
+    tokens = await check_user_authorize(request=request, response=response)
+    if tokens == 0:
+        raise HTTPException(status_code=401, detail='user is not authorized')
+    elif tokens != 1:
+        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
+    else:
+        id = await get_id_from_access_token(request.cookies.get('jwt_access_token'))
+    user = await get_user_by_uid(async_session=async_session, id=id)
     return templates.TemplateResponse("basket.html", {"request": request})
 
 

@@ -133,3 +133,15 @@ async def add_item_to_basket(async_session: AsyncSession, item: BasketAddItem):
         except Exception as e:
             print(f"error: {e}")
             raise e
+
+
+async def get_users_items_from_basket(async_session: AsyncSession, uid: int):
+    async with async_session() as session:
+        try:
+            stmt = select(Basket, Item).join(full=True, ).where(Basket.user_id == uid)
+            result = await session.execute(stmt)
+            items = result.scalars()
+            return items
+        except Exception as e:
+            print(f"error: {e}")
+            raise e

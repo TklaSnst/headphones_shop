@@ -33,5 +33,9 @@ class GetUser(Base):
 
 
 class BasketAddItem(Base):
-    uid: int
+    user_id: int
+    item_id: int
+
+
+class SItemAddToBasket(Base):
     item_id: int

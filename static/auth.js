@@ -70,14 +70,20 @@ async function get_me(){
 }
 
 
-function basketAdd(){
-    const url = 'http://127.0.0.1:8000/auth/users/me/';
+function basketAdd(item_id){
+    let item = {
+        item_id: item_id
+    }
+    // console.log(item_id, typeof(item))
+    const url = 'http://127.0.0.1:8000/sup/basket/add/';
     let response = fetch(url, {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${document.cookie}`,
             'Content-Type': 'application/json'
         },
-        body: json.stringify(item)
+        body: JSON.stringify(item)
+    }).then(response => {
+        console.log(response.status);
+        console.log(response.json)
     });
 }

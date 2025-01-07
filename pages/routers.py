@@ -3,7 +3,7 @@ from fastapi.exceptions import HTTPException
 from auth import check_user_authorize, get_id_from_access_token
 from fastapi.templating import Jinja2Templates
 from database import get_item_by_id, async_session, get_start_items, get_user_by_uid
-
+from auth import check_user_authorize, get_id_from_access_token
 
 router = APIRouter(
     tags=["pages"],
@@ -13,16 +13,29 @@ templates = Jinja2Templates(directory="static")
 
 
 @router.get("/store-main/")
-async def get_base_page(request: Request, param: int = 0):
-    item1 = await get_item_by_id(async_session=async_session, item_id=1)
-    item2 = await get_item_by_id(async_session=async_session, item_id=2)
-    item3 = await get_item_by_id(async_session=async_session, item_id=3)
-    return templates.TemplateResponse("store.html", {
-        "request": request, "item_url_1": item1.img_url, "title_1": item1.fullname, "item_brand_1": item1.brand, "item_name_1": item1.fullname, "item_price_1": item1.price,
-        "item_url_2": item2.img_url, "title_2": item2.fullname, "item_brand_2": item2.brand, "item_name_2": item2.fullname, "item_price_2": item2.price,
-        "item_url_3": item3.img_url, "title_3": item3.fullname, "item_brand_3": item3.brand, "item_name_3": item3.fullname, "item_price_3": item3.price,
-        "item_id_1": item1.item_id, "item_id_2": item2.item_id, "item_id_3": item3.item_id,
-    })
+async def get_base_page(request: Request, response: Response):
+    v = {}
+    n = 1
+    tokens = await check_user_authorize(request=request, response=response)
+    uid = await get_id_from_access_token(tokens.get("jwt_access_token"))
+    user = await get_user_by_uid(async_session=async_session, id=uid)
+
+    if not tokens:
+        v['username'] = ''
+    else:
+        v['username'] = user.name
+
+    v['request'] = request
+    items = await get_start_items(async_session=async_session, c=4)
+    for item in items:
+        v[f'item_id_{n}'] = item.item_id
+        v[f'title_{n}'] = item.fullname
+        v[f'item_name_{n}'] = item.fullname
+        v[f'item_url_{n}'] = item.img_url
+        v[f'item_brand_{n}'] = item.brand
+        v[f'item_price_{n}'] = item.price
+        n += 1
+    return templates.TemplateResponse("store.html", v)
 
 
 @router.get("/comparison/")

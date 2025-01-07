@@ -38,9 +38,9 @@ async def get_item_by_id(async_session: AsyncSession, item_id: Item.item_id):
 async def get_start_items(async_session: AsyncSession, c: int):
     async with async_session() as session:
         try:
-            stmt = session.querry(Item).filter(Item.item_id <= c).all()
+            stmt = select(Item).where(Item.item_id < c)
             result = await session.execute(stmt)
-            items = result.scalars()
+            items = result.scalars().all()
             return items
         except Exception as e:
             raise e

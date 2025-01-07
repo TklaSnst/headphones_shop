@@ -20,6 +20,24 @@
                 <li class="active"><a href="http://127.0.0.1:8000/page/store-main/" class="nav_button">Каталог</a></li>
                 <li><a href="http://127.0.0.1:8000/page/comparison/" class="nav_button">Сравнение</a></li>
                 <li><a href="http://127.0.0.1:8000/page/basket/" class="nav_button">Корзина</a></li>
+                <li>
+                  <div class='search-form' style="margin: 10px 4px 4px 40px; border-radius: 5px;">
+                    <form class="d-flex">
+                      <div class="col">
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            name=""
+                            id="search-form"
+                            class="form-control"
+                            placeholder=""
+                            aria-describedby="helpId"
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
                 <div class="d-flex">
                   <div class="flex-grow-1 ms-3">
                   </div>
@@ -28,7 +46,7 @@
           <a href='http://127.0.0.1:8000/page/user'>
             <div>
               <img src="https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png" alt="" style="width: 2%; height: 2%; border-radius: 50%; float: right; margin: 0px 0px 0px 0px" />
-              <h4><p style="float: right; margin: 6px 10px 10px 0">{ username }</p></h4>
+              <h4><p style="float: right; margin: 6px 10px 10px 0">{{ username }}</p></h4>
             </div>
           </a>
         </div>

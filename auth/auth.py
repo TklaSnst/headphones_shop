@@ -20,7 +20,9 @@ http_bearer = HTTPBearer()
 async def check_user_authorize(request: Request, response: Response):
     a_token = request.cookies.get('jwt_access_token')
     r_token = request.cookies.get('jwt_refresh_token')
-    if (
+    if not a_token or not r_token:
+        raise HTTPException(status_code=401)
+    elif (
             (await decode_token(a_token) == 0) and (await decode_token(r_token) == 0) or
             (await decode_token(a_token) == 1) and (await decode_token(r_token) == 0)
     ):

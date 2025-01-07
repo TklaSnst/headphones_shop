@@ -87,3 +87,5 @@ function basketAdd(item_id){
         console.log(response.json)
     });
 }
+
+  

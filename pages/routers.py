@@ -35,15 +35,13 @@ async def get_base_page(request: Request, response: Response):
     tokens = await check_user_authorize(request=request, response=response)
     if tokens == 0:
         raise HTTPException(status_code=401, detail='user is not authorized')
-    elif tokens != 1:
-        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
     else:
-        id = await get_id_from_access_token(request.cookies.get('jwt_access_token'))
-    user = await get_user_by_uid(async_session=async_session, id=id)
-    return templates.TemplateResponse("user.html", {
-        "request": request, "username": user.name, "user_id": user.user_id,
-        "user_is_superuser": user.is_superuser, "user_email": user.email
-    })
+        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
+        user = await get_user_by_uid(async_session=async_session, id=id)
+        return templates.TemplateResponse("user.html", {
+            "request": request, "username": user.name, "user_id": user.user_id,
+            "user_is_superuser": user.is_superuser, "user_email": user.email
+        })
 
 
 @router.get("/catalog/")

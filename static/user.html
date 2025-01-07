@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='my.css') }}">
 {% endblock head %}
 
 
@@ -8,10 +9,23 @@
 
 
 {% block content %}
-<div>
-    <h2>username: {{ username }} id: {{ user_id }}</h2>
-    <h2>id: {{ user_id }}</h2>
-    <h3>email: {{ user_email }}</h3>
-    <h4>admin: {{ user_is_superuser }}</h4>
-</div>
+
+<h2>username: {{ username }}</h2>
+<h2>id: {{ user_id }}</h2>
+<h3>email: {{ user_email }}</h3>
+<h4>admin: {{ user_is_superuser }}</h4>
+
+<button type="button" class="btn btn-primary" onclick="open_popup()">
+    Button
+</button>
+    
+<div class="modal">
+    <div class="modal-window">
+        <h1>R u shure?</h1>
+    </div>
+
+    <div class="overlay"></div>
+</div>    
+
+
 {% endblock content %}

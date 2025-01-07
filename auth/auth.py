@@ -29,7 +29,10 @@ async def check_user_authorize(request: Request, response: Response):
         print('expired signature')
         tokens = await refresh_tokens(a_token, r_token, response)
         return tokens
-    return 1
+    return {
+        "jwt_access_token": a_token,
+        "jwt_refresh_token": r_token
+    }
 
 
 @router.post("/registration/")
@@ -126,14 +129,22 @@ async def get_user_info(
 
 
 @router.post('/logout/')
-async def logout(creds: HTTPAuthorizationCredentials = Depends(HTTPBearer)):
-    token = creds.credentials
-    uid = await get_id_from_access_token(token)
-    status = await database.delete_refresh_token(
-        async_session=database.async_session,
-        uid=uid
-    )
-    return {
-        "uid": uid,
-        "delete-status": status
-    }
+async def logout(
+        request: Request,
+        response: Response,
+        ):
+    tokens = await check_user_authorize(request=request, response=response)
+    if not tokens:
+        raise HTTPException(status_code=401, detail='unauthorized')
+    else:
+        uid = await get_id_from_access_token(tokens.get("jwt_access_token"))
+        status = await database.delete_refresh_token(
+            async_session=database.async_session,
+            uid=uid
+        )
+        response.delete_cookie("jwt_access_token")
+        response.delete_cookie("jwt_refresh_token")
+        return {
+            "uid": uid,
+            "delete-status": status
+        }

@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Request, Response
 from fastapi.exceptions import HTTPException
 from auth import check_user_authorize, get_id_from_access_token
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from database import get_item_by_id, async_session, get_start_items, get_user_by_uid
+from database import (get_item_by_id, async_session, get_start_items, get_user_by_uid,
+                      get_users_items_from_basket)
 from auth import check_user_authorize, get_id_from_access_token
 
 router = APIRouter(
@@ -16,13 +18,15 @@ templates = Jinja2Templates(directory="static")
 async def get_base_page(request: Request, response: Response):
     v = {}
     n = 1
-    tokens = await check_user_authorize(request=request, response=response)
-    uid = await get_id_from_access_token(tokens.get("jwt_access_token"))
-    user = await get_user_by_uid(async_session=async_session, id=uid)
+    a_token = request.cookies.get('jwt_access_token')
+    r_token = request.cookies.get('jwt_refresh_token')
 
-    if not tokens:
+    if not a_token or not r_token:
         v['username'] = ''
     else:
+        tokens = await check_user_authorize(request=request, response=response)
+        uid = await get_id_from_access_token(tokens.get("jwt_access_token"))
+        user = await get_user_by_uid(async_session=async_session, id=uid)
         v['username'] = user.name
 
     v['request'] = request
@@ -45,6 +49,10 @@ async def get_base_page(request: Request):
 
 @router.get("/user/")
 async def get_base_page(request: Request, response: Response):
+    a_token = request.cookies.get('jwt_access_token')
+    r_token = request.cookies.get('jwt_refresh_token')
+    if not a_token or not r_token:
+        return RedirectResponse("/page/registration/")
     tokens = await check_user_authorize(request=request, response=response)
     if tokens == 0:
         raise HTTPException(status_code=401, detail='user is not authorized')
@@ -64,15 +72,30 @@ async def get_base_page(request: Request):
 
 @router.get("/basket/")
 async def get_base_page(request: Request, response: Response):
+    a_token = request.cookies.get('jwt_access_token')
+    r_token = request.cookies.get('jwt_refresh_token')
+    if not a_token or not r_token:
+        return RedirectResponse("/page/registration/")
+
     tokens = await check_user_authorize(request=request, response=response)
-    if tokens == 0:
+    if not tokens:
         raise HTTPException(status_code=401, detail='user is not authorized')
-    elif tokens != 1:
-        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
     else:
-        id = await get_id_from_access_token(request.cookies.get('jwt_access_token'))
+        id = await get_id_from_access_token(tokens.get('jwt_access_token'))
     user = await get_user_by_uid(async_session=async_session, id=id)
-    return templates.TemplateResponse("basket.html", {"request": request})
+    items = await get_users_items_from_basket(async_session=async_session, uid=id)
+
+    n = 1
+    v = {'request': request}
+    v['username'] = user.name
+    for item in items:
+        v[f'item_id_{n}'] = item.item_id
+        v[f'item_img_{n}'] = item.img_url
+        v[f'item_name_{n}'] = item.fullname
+        v[f'item_price_{n}'] = item.price
+        n += 1
+
+    return templates.TemplateResponse("basket.html", v)
 
 
 @router.get("/registration/")

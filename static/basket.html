@@ -2,12 +2,183 @@
 
 
 {% block head%}
+<script src="{{ url_for('static', path='auth.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', path='my.css') }}">
 {% endblock head %}
 
 
 {% block title%}
+SoundSphereCart
 {% endblock title %}
 
 
 {% block content %}
+
+<div class="cells-container" style="padding: 10px 200px 40px 200px">
+
+    <div class="cell" style='background-color: #ffffff;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#b4b4b4';" 
+        onmouseout="this.style.backgroundColor='#fff';"
+        id='cart-cell-1'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_1 }}">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img">
+                    <img src="{{ item_img_1 }}" style="width: 65%; height: 65%">
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-name">
+                    <h3>{{ item_name_1 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-price">
+                    <h2>{{ item_price_1 }}</h2>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-quanity">
+                    <button type="button" class="btn btn-primary">+</button>
+                    {{ item_quantity_1 }}
+                    <button type="button" class="btn btn-primary">-</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h2>{{ item_fullprice_1 }}</h2>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+    <div class="cell" style='background-color: #ffffff;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#b4b4b4';" 
+        onmouseout="this.style.backgroundColor='#fff';"
+        id='cart-cell-2'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_2 }}">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img">
+                    <img src="{{ item_img_2 }}" style="width: 65%; height: 65%">
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-name">
+                    <h3>{{ item_name_2 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-price">
+                    <h2>{{ item_price_2 }}</h2>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-quanity">
+                    <button type="button" class="btn btn-primary">+</button>
+                    {{ item_quantity_2 }}
+                    <button type="button" class="btn btn-primary">-</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h2>{{ item_fullprice_2 }}</h2>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+    <div class="cell" style='background-color: #ffffff;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#b4b4b4';" 
+        onmouseout="this.style.backgroundColor='#fff';"
+        id='cart-cell-3'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_3 }}">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img">
+                    <img src="{{ item_img_3 }}" style="width: 65%; height: 65%">
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-name">
+                    <h3>{{ item_name_3 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-price">
+                    <h2>{{ item_price_3 }}</h2>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="item-quanity">
+                    <button type="button" class="btn btn-primary">+</button>
+                    {{ item_quantity_3 }}
+                    <button type="button" class="btn btn-primary">-</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h2>{{ item_fullprice_3 }}</h2>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+
+</div>
+
 {% endblock content %}

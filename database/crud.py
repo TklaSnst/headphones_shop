@@ -125,11 +125,16 @@ async def delete_refresh_token(async_session: AsyncSession, uid: int):
 async def add_item_to_basket(async_session: AsyncSession, item: BasketAddItem):
     async with async_session() as session:
         try:
-            item_add = Basket(**item.model_dump())
-            session.add(item_add)
-            await session.commit()
-            await session.refresh(item_add)
-            return item_add.string_id
+            stmt = select(Basket).where(Basket.item_id == item.item_id).where(Basket.user_id == item.user_id)
+            result = await session.execute(stmt)
+            line = result.scalar()
+            if not line:
+                item_add = Basket(**item.model_dump())
+                session.add(item_add)
+                await session.commit()
+                await session.refresh(item_add)
+                return item_add.string_id
+            return line
         except Exception as e:
             print(f"error: {e}")
             raise e
@@ -138,9 +143,9 @@ async def add_item_to_basket(async_session: AsyncSession, item: BasketAddItem):
 async def get_users_items_from_basket(async_session: AsyncSession, uid: int):
     async with async_session() as session:
         try:
-            stmt = select(Basket, Item).join(full=True, ).where(Basket.user_id == uid)
+            stmt = select(Item).join(Basket, Basket.item_id == Item.item_id).where(Basket.user_id == uid)
             result = await session.execute(stmt)
-            items = result.scalars()
+            items = result.scalars().all()
             return items
         except Exception as e:
             print(f"error: {e}")

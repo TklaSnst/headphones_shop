@@ -29,7 +29,7 @@ async def check_user_authorize(request: Request, response: Response):
         return 0
     elif (await decode_token(a_token) == 0) and (await decode_token(r_token) == 1):
         print('expired signature')
-        tokens = await refresh_tokens(a_token, r_token, response)
+        tokens = await refresh_tokens(a_token=a_token, r_token=r_token, response=response)
         return tokens
     return {
         "jwt_access_token": a_token,

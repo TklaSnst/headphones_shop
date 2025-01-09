@@ -93,6 +93,7 @@ async def get_base_page(request: Request, response: Response):
         v[f'item_img_{n}'] = item.img_url
         v[f'item_name_{n}'] = item.fullname
         v[f'item_price_{n}'] = item.price
+        v[f'item_brand_{n}'] = item.brand
         n += 1
 
     return templates.TemplateResponse("basket.html", v)

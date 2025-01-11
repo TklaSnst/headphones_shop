@@ -2,7 +2,6 @@
 
 
 {% block head%}
-<script src="{{ url_for('static', path='items.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', path='my.css') }}">
 {% endblock head %}
 
@@ -37,7 +36,7 @@ SoundSphereCart
             </div>
 
 
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="item-name">
                     <h3 id="item_cell_1" style="text-align: left;">{{ item_brand_1 }}</h3>
                 </div>
@@ -51,7 +50,7 @@ SoundSphereCart
             </div>
 
 
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="item-price">
                     <h3 class="item_price_1">{{ item_price_1 }}&#8381</h3>
                 </div>
@@ -84,53 +83,68 @@ SoundSphereCart
     </div>
     <br>
 
-    <div class="cell" style='background-color: #ffffff;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
-        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-        onmouseout="this.style.backgroundColor='#fff';"
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
         id='cart-cell-2'
         >
         <div class="row">
 
             <div class="col-md-1">
-                <div class="item-is-active">
-                    <input type="checkbox" class="item-checkbox" id="{{ item_id_2 }}">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_2 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
                 </div>
             </div>
 
 
             <div class="col-md-1">
-                <div class="item-img">
-                    <img src="{{ item_img_2 }}" style="width: 65%; height: 65%">
-                </div>
-            </div>
-
-
-            <div class="col-md-3">
-                <div class="item-name">
-                    <h3 id="item_cell_2">{{ item_name_2 }}</h3>
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_2 }}" style="width: 75%; height: 75%; float: left;"></a>
                 </div>
             </div>
 
 
             <div class="col-md-2">
-                <div class="item-price">
-                    <h2>{{ item_price_2 }}</h2>
+                <div class="item-name">
+                    <h3 id="item_cell_2" style="text-align: left;">{{ item_brand_2 }}</h3>
                 </div>
             </div>
 
 
-            <div class="col-md-3">
-                <div class="item-quanity">
-                    <button type="button" class="btn btn-primary">+</button>
-                    {{ item_quantity_2 }}
-                    <button type="button" class="btn btn-primary">-</button>
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_2" class='item_name' style="text-align: left;">{{ item_name_2 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_2">{{ item_price_2 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(2)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(2)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_2'>
+                        1
+                    </h4>
+                    
                 </div>
             </div>
 
 
             <div class="col-md-2">
                 <div class="items-fullprice">
-                    <h2>{{ item_fullprice_2 }}</h2>
+                    <h3 class='item_fullprice_2'>{{ item_price_2 }}</h3>
                 </div>
             </div>
             
@@ -138,53 +152,68 @@ SoundSphereCart
     </div>
     <br>
 
-    <div class="cell" style='background-color: #ffffff;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'   
-        onmouseover="this.style.backgroundColor='#b4b4b4';" 
-        onmouseout="this.style.backgroundColor='#fff';"
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
         id='cart-cell-3'
         >
         <div class="row">
 
             <div class="col-md-1">
-                <div class="item-is-active">
-                    <input type="checkbox" class="item-checkbox" id="{{ item_id_3 }}">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_3 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
                 </div>
             </div>
 
 
             <div class="col-md-1">
-                <div class="item-img">
-                    <img src="{{ item_img_3 }}" style="width: 65%; height: 65%">
-                </div>
-            </div>
-
-
-            <div class="col-md-3">
-                <div class="item-name">
-                    <h3 id="item_cell_3">{{ item_name_3 }}</h3>
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_3 }}" style="width: 75%; height: 75%; float: left;"></a>
                 </div>
             </div>
 
 
             <div class="col-md-2">
-                <div class="item-price">
-                    <h2>{{ item_price_3 }}</h2>
+                <div class="item-name">
+                    <h3 id="item_cell_3" style="text-align: left;">{{ item_brand_3 }}</h3>
                 </div>
             </div>
 
 
-            <div class="col-md-3">
-                <div class="item-quanity">
-                    <button type="button" class="btn btn-primary">+</button>
-                    {{ item_quantity_3 }}
-                    <button type="button" class="btn btn-primary">-</button>
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_3" class='item_name' style="text-align: left;">{{ item_name_3 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_3">{{ item_price_3 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(3)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(3)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_3'>
+                        1
+                    </h4>
+                    
                 </div>
             </div>
 
 
             <div class="col-md-2">
                 <div class="items-fullprice">
-                    <h2>{{ item_fullprice_3 }}</h2>
+                    <h3 class='item_fullprice_3'>{{ item_price_3 }}</h3>
                 </div>
             </div>
             
@@ -193,6 +222,366 @@ SoundSphereCart
     <br>
 
 
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
+        id='cart-cell-4'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_4 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_4 }}" style="width: 75%; height: 75%; float: left;"></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_4" style="text-align: left;">{{ item_brand_4 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_4" class='item_name' style="text-align: left;">{{ item_name_4 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_4">{{ item_price_4 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(4)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(4)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_4'>
+                        1
+                    </h4>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h3 class='item_fullprice_4'>{{ item_price_4 }}</h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
+        id='cart-cell-5'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_5 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_5 }}" style="width: 75%; height: 75%; float: left;"></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_5" style="text-align: left;">{{ item_brand_5 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_5" class='item_name' style="text-align: left;">{{ item_name_5 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_5">{{ item_price_5 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(5)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(5)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_5'>
+                        1
+                    </h4>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h3 class='item_fullprice_5'>{{ item_price_5 }}</h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+    
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
+        id='cart-cell-6'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_6 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_6 }}" style="width: 75%; height: 75%; float: left;"></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_6" style="text-align: left;">{{ item_brand_6 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_6" class='item_name' style="text-align: left;">{{ item_name_6 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_6">{{ item_price_6 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(6)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(6)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_6'>
+                        1
+                    </h4>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h3 class='item_fullprice_6'>{{ item_price_6 }}</h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%; height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
+        id='cart-cell-7'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_7 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_7 }}" style="width: 75%; height: 75%; float: left;"></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_7" style="text-align: left;">{{ item_brand_7 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_7" class='item_name' style="text-align: left;">{{ item_name_7 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_7">{{ item_price_7 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(7)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(7)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_7'>
+                        1
+                    </h4>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h3 class='item_fullprice_7'>{{ item_price_7 }}</h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+
+    <div class="cell" style='background-color: #d6d6d6;  width: 100%;height: 7vh; border-radius: 12px; transition: 0.3s;'
+        onmouseover="this.style.backgroundColor='#868686';" 
+        onmouseout="this.style.backgroundColor='#d6d6d6';"
+        id='cart-cell-8'
+        >
+        <div class="row">
+
+            <div class="col-md-1">
+                <div class="item-is-active" style="padding: 20px 10px 10px 40px;">
+                    <input type="checkbox" class="item-checkbox" id="{{ item_id_8 }}" style="width: 20px; height: 20px; border-radius: 50%; background-color: black;">
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-img"><a href='#'>
+                    <img src="{{ item_img_8 }}" style="width: 75%; height: 75%; float: left;"></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_8" style="text-align: left;">{{ item_brand_8 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="item-name">
+                    <h3 id="item_cell_8" class='item_name' style="text-align: left;">{{ item_name_8 }}</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-1">
+                <div class="item-price">
+                    <h3 class="item_price_8">{{ item_price_8 }}&#8381</h3>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style='padding: 7px 0 0 0'>
+                <div class="item-quanity" style='width: 35%; height: 5vh; border-radius: 5px; padding: 0px 7px 0px 7px;'>
+
+                    <button type="button" onclick="cart_encrease_item(8)" class="btn btn-primary" 
+                    style='float: left; background-color: black; color: #ffffff; position: fixed; border-color: black;'>+</button>
+                    <button type="button" onclick="cart_decrease_item(8)" class="btn btn-primary" 
+                    style='float: right; background-color: black; color: #ffffff; border-color: black;'>-</button>
+                    
+                    <h4 style='font-size: 30px; width: 20%; padding: 0px 0px 0px 40px' class='item_quantity_8'>
+                        1
+                    </h4>
+                    
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="items-fullprice">
+                    <h3 class='item_fullprice_3'>{{ item_price_8 }}</h3>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
 </div>
 
+<div class="buy" style='
+border-radius: 12px; width: 240px; float: center; height: 10vh; margin-left: auto; margin-right: auto; padding: 15px 7px 0px 7px;
+'>
+
+    <button type="button" class="btn btn-primary" style='float: right; background-color: black; color: #ffffff; border-color: black; height: 6vh; width: 12vh; font-size: 30px;'> 
+        Buy
+    </button>
+    <h2 style="width: 30%; float: left;">
+        Total
+    </h2>
+    <h3 style="width: 30%">
+        123972
+    </h3>
+    
+</div>
+
+<script src="{{ url_for('static', path='items.js') }}"></script>
 {% endblock content %}

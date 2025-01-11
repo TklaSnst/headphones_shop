@@ -11,9 +11,14 @@
 
 if (window.location.href == 'http://127.0.0.1:8000/page/basket/'){
     items = document.getElementsByClassName('item_name');
-    console.log(items[0].textContent);
-    for (let i = 0; i < items.lenth; i++){
-        console.log(items[i].textContent)
+    
+    for (let i = 0; i < 8; i++){
+        console.log(items[i].textContent);
+        if (items[i].textContent == ''){
+            console.log(i);
+            let cell = document.getElementById(`cart-cell-${i + 1}`);
+            cell.style.display = 'none';
+        }
     }
 }
 
